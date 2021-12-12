@@ -1,0 +1,11 @@
+需要wrap并上抛，因为是和其他库协作出现错误
+dao:
+
+return errors.Wrapf(code.NotFound, fmt.Sprintf("sql: %s error: %v", sql, err))
+
+
+上层:
+
+if errors.Is(err, code.NotFound} {
+
+}
