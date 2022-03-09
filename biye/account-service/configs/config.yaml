@@ -1,0 +1,14 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+  grpc:
+    addr: 0.0.0.0:9000
+data:
+  database:
+    dsn: "root:dangerous@tcp(127.0.0.1:3307)/realworld?charset=utf8mb4&parseTime=True&loc=Local"
+  redis:
+    addr: 127.0.0.1:6379
+  kafka:
+    addr: 127.0.0.1:9092
+jwt:
+  secret: "hello"

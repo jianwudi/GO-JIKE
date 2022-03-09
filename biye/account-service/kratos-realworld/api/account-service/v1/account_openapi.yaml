@@ -1,0 +1,86 @@
+components:
+  schemas:
+    RealworldV1LoginRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1LoginRequestUser'
+      type: object
+    RealworldV1RegisterRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1RegisterRequestUser'
+      type: object
+    RealworldV1UpdateUserRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1UpdateUserRequestUser'
+      type: object
+    RealworldV1UserReply:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1UserReplyUser'
+      type: object
+info:
+  description: realworld.v1
+  title: realworld.v1
+  version: "1"
+openapi: 3.0.0
+paths:
+  /api/user:
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealworldV1UpdateUserRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealworldV1UserReply'
+          description: ok
+      tags:
+      - realworld.v1.Account
+    summary: UpdateUser
+  /api/users:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealworldV1RegisterRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealworldV1UserReply'
+          description: ok
+      tags:
+      - realworld.v1.Account
+    summary: Register
+  /api/users/login:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealworldV1LoginRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealworldV1UserReply'
+          description: ok
+      tags:
+      - realworld.v1.Account
+    summary: Login
+tags:
+- description: The greeting service definition.
+  name: realworld.v1.Account
+

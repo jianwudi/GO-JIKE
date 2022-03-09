@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package realworld.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "kratos-realworld/api/account-service/v1;v1";
+
+// The greeting service definition.
+service Account {
+  rpc Login(LoginRequest) returns (UserReply) {
+    option (google.api.http) = {
+      post: "/api/users/login",
+      body: "*",
+    };
+  }
+
+  rpc Register(RegisterRequest) returns (UserReply) {
+    option (google.api.http) = {
+      post: "/api/users",
+      body: "*",
+    };
+  }
+
+  rpc GetCurrentUser(GetCurrentUserRequest) returns (UserReply) {
+    option (google.api.http) = {
+      get: "/api/user",
+    };
+  }
+
+  rpc UpdateUser(UpdateUserRequest) returns (UserReply) {
+    option (google.api.http) = {
+      put: "/api/user",
+      body: "*",
+    };
+  }
+
+}
+
+message GetCurrentUserRequest {}
+
+
+message UpdateUserRequest {
+
+    message User {
+      string email = 1;
+      string token = 2;
+      string username = 3;
+      string bio = 4;
+      string image = 5;
+    }
+
+    User user = 1;
+}
+
+message UserReply {
+  message User {
+      string email = 1;
+      string token = 2;
+      string username = 3;
+      string bio = 4;
+      string image = 5;
+  }
+  User user = 1;
+}
+
+message LoginRequest {
+  message User {
+    string email = 1;
+    string password = 2; 
+  }
+  User user = 1;
+}
+
+
+
+message RegisterRequest {
+  message User {
+    string username = 1;
+    string email = 2;
+    string password = 3; 
+  }
+  User user = 1;
+}
