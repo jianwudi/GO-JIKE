@@ -1,21 +1,26 @@
 package service
 
 import (
+	v1 "account-service/api/realworld/v1"
+	"account-service/internal/pkg/errors"
 	"context"
 	"fmt"
+)
 
-	v1 "account-service/api/realworld/v1"
+var (
+	ErrMissingEmail = errors.NewHTTPError(422, "email", "cannot be empty")
+	ErrRegisterFail = errors.NewHTTPError(423, "register", "fail")
 )
 
 func (s *AccountService) Login(ctx context.Context, req *v1.LoginRequest) (reply *v1.UserReply, err error) {
-	/* 	if len(req.User.Email) == 0 {
-		return nil, errors.NewHTTPError(422, "email", "cannot be empty")
-	} */
+	if len(req.User.Email) == 0 {
+		return nil, ErrMissingEmail
+	}
 
 	fmt.Println("Login")
 	u, err := s.uc.Login(ctx, req.User.Email, req.User.Password)
 	if err != nil {
-		return nil, err
+		return nil, ErrRegisterFail
 	}
 	return &v1.UserReply{
 		User: &v1.UserReply_User{
