@@ -1,0 +1,62 @@
+components:
+  schemas:
+    RealworldV1LoginRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1LoginRequestUser'
+      type: object
+    RealworldV1RegisterRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1RegisterRequestUser'
+      type: object
+    RealworldV1UserReply:
+      properties:
+        user:
+          $ref: '#/components/schemas/RealworldV1UserReplyUser'
+      type: object
+info:
+  description: realworld.v1
+  title: realworld.v1
+  version: "1"
+openapi: 3.0.0
+paths:
+  /api/users:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealworldV1RegisterRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealworldV1UserReply'
+          description: ok
+      tags:
+      - realworld.v1.RealWorld
+    summary: Register
+  /api/users/login:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealworldV1LoginRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealworldV1UserReply'
+          description: ok
+      tags:
+      - realworld.v1.RealWorld
+    summary: Login
+tags:
+- name: realworld.v1.RealWorld
+

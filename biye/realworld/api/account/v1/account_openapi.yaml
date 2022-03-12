@@ -1,0 +1,86 @@
+components:
+  schemas:
+    AccountV1LoginRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/AccountV1LoginRequestUser'
+      type: object
+    AccountV1RegisterRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/AccountV1RegisterRequestUser'
+      type: object
+    AccountV1UpdateUserRequest:
+      properties:
+        user:
+          $ref: '#/components/schemas/AccountV1UpdateUserRequestUser'
+      type: object
+    AccountV1UserReply:
+      properties:
+        user:
+          $ref: '#/components/schemas/AccountV1UserReplyUser'
+      type: object
+info:
+  description: account.v1
+  title: account.v1
+  version: "1"
+openapi: 3.0.0
+paths:
+  /api/user:
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountV1UpdateUserRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountV1UserReply'
+          description: ok
+      tags:
+      - account.v1.Account
+    summary: UpdateUser
+  /api/users:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountV1RegisterRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountV1UserReply'
+          description: ok
+      tags:
+      - account.v1.Account
+    summary: Register
+  /api/users/login:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountV1LoginRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountV1UserReply'
+          description: ok
+      tags:
+      - account.v1.Account
+    summary: Login
+tags:
+- description: The greeting service definition.
+  name: account.v1.Account
+

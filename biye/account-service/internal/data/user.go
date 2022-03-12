@@ -51,6 +51,7 @@ func (r *userRepo) sendToKafKa(k *KUser) error {
 		return err
 	}
 	fmt.Printf("pid:%v offset:%v\n", pid, offset)
+	return nil
 }
 
 func (r *userRepo) CreateUser(ctx context.Context, u *biz.User) error {

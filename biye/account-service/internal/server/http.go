@@ -1,7 +1,7 @@
 package server
 
 import (
-	v1 "account-service/api/realworld/v1"
+	v1 "account-service/api/account/v1"
 	"account-service/internal/conf"
 	"account-service/internal/service"
 	"context"

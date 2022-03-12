@@ -8,6 +8,9 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 	"golang.org/x/crypto/bcrypt"
+
+	opentracing "github.com/opentracing/opentracing-go"
+	olog "github.com/opentracing/opentracing-go/log"
 )
 
 type User struct {
@@ -78,6 +81,14 @@ func (uc *UserUsecase) Register(ctx context.Context, username, email, password s
 }
 
 func (uc *UserUsecase) Login(ctx context.Context, email, password string) (*UserLogin, error) {
+	span, _ := opentracing.StartSpanFromContext(ctx, "UserUsecase Login")
+	defer span.Finish()
+
+	span.LogFields(
+		olog.String("event", "Login"),
+		olog.String("value", "test"),
+	)
+
 	u, err := uc.ur.GetUserByEmail(ctx, email)
 	if err != nil {
 		return nil, err

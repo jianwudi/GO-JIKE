@@ -1,10 +1,12 @@
 package service
 
 import (
-	v1 "account-service/api/realworld/v1"
+	v1 "account-service/api/account/v1"
 	"account-service/internal/pkg/errors"
 	"context"
 	"fmt"
+
+	opentracing "github.com/opentracing/opentracing-go"
 )
 
 var (
@@ -16,7 +18,14 @@ func (s *AccountService) Login(ctx context.Context, req *v1.LoginRequest) (reply
 	if len(req.User.Email) == 0 {
 		return nil, ErrMissingEmail
 	}
-
+	//创建trace
+	tracer, closer := initJaeger("account")
+	defer closer.Close()
+	//创建span
+	opentracing.SetGlobalTracer(tracer)
+	span := tracer.StartSpan("login")
+	defer span.Finish()
+	ctx = opentracing.ContextWithSpan(ctx, span)
 	fmt.Println("Login")
 	u, err := s.uc.Login(ctx, req.User.Email, req.User.Password)
 	if err != nil {
